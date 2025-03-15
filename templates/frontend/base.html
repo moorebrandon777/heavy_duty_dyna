@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="keywords"
+      content="Heavy Duty Dynamics, Factory & Industrial Equipments Rentals"
+    />
+    <meta
+      name="description"
+      content="Heavy Duty Dynamics, Factory & Industrial Equipments Rentals"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <title>Heavy Duty Dynamics - Factory & Industrial Equipments Rentals</title>
+    <!-- FavIcon Link -->
+    <link
+      rel="icon"
+      href="{% static 'frontend/assets/images/favicon.png' %}"
+      sizes="32x32"
+      type="image/png"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="{% static 'frontend/assets/cs2/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap' %}"
+      rel="stylesheet"
+    />
+    <!-- Bootstrap CSS Link -->
+    <link rel="stylesheet" href="{% static 'frontend/assets/css/bootstrap.min.css' %}" />
+    <!-- Swiper Slider CSS Link -->
+    <link rel="stylesheet" href="{% static 'frontend/assets/css/swiper-bundle.min.css' %}" />
+    <!-- Magnific Popup CSS Link -->
+    <link rel="stylesheet" href="{% static 'frontend/assets/css/magnific-popup.min.css' %}" />
+    <!-- Animate CSS Link -->
+    <link rel="stylesheet" href="{% static 'frontend/assets/css/animate.min.css' %}" />
+    <!-- Main Style CSS Link -->
+    <link rel="stylesheet" href="{% static 'frontend/assets/css/style.css' %}" />
+  </head>
+
+  <body class="fixed index_page">
+    <!-- START OF LOADER -->
+    <div class="loader-box">
+      <div class="loader">
+        <img
+          src="{% static 'frontend/assets/images/logo-fill.svg' %}"
+          width="165"
+          height="134"
+          alt="Loader Main"
+        />
+      </div>
+    </div>
+    <!-- LOADER END -->
+
+    {% include './include/navbar.html' %}
+    {% block content %} {% endblock %}
+    {% include './include/footer.html' %}
+
+    <!-- SCROLL TO TOP Start -->
+    <a
+      href="javascript:void(0);"
+      id="scroll-to-top"
+      class="scroll-to-top"
+      title="Scroll to Top"
+    >
+      <i class="fas fa-arrow-up"></i>
+    </a>
+    <!-- SCROLL TO TOP End -->
+    <!-- Jquery JS Link -->
+    <!-- <script
+      data-cfasync="false"
+      src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script> -->
+    <script src="{% static 'frontend/assets/js/jquery.min.js' %}"></script>
+    <!-- Bootstrap and Popper JS Link -->
+    <script src="{% static 'frontend/assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'frontend/assets/js/popper.min.js' %}"></script>
+    <!-- Simplebar JS Link -->
+    <script src="{% static 'frontend/assets/js/simplebar.js' %}"></script>
+    <!-- Font Awesome JS Link -->
+    <script src="{% static 'frontend/assets/js/font-awesome.min.js' %}"></script>
+    <!-- Swiper Slider JS Link -->
+    <script src="{% static 'frontend/assets/js/swiper-bundle.min.js' %}"></script>
+    <!-- Magnific Popup JS Link -->
+    <script src="{% static 'frontend/assets/js/jquery.magnific-popup.min.js' %}"></script>
+    <!-- Wow Animation JS Link -->
+    <script src="{% static 'frontend/assets/js/wow.min.js' %}"></script>
+    <!-- Counter JS Link -->
+    <script src="{% static 'frontend/assets/js/counter.js' %}"></script>
+    <!-- Progress Bar JS Link -->
+    <script src="{% static 'frontend/assets/js/progress-bar.js' %}"></script>
+    <!-- Custom JS Link -->
+    <script src="{% static 'frontend/assets/js/custom.js' %}"></script>
+  </body>
+</html>
