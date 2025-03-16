@@ -32,7 +32,7 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="site-branding">
-                        <a href="index.html" title="Induris">
+                        <a href="{% url 'frontend:home' %}" title="Induris">
                             <img src="{% static 'frontend/assets/images/logo.svg' %}" width="152" height="35" alt="Induris Logo">
                         </a>
                     </div>
@@ -51,13 +51,13 @@
                                         <a href="{% url 'frontend:home' %}" title="Home">Home</a>
                                     </li>
                                     <li>
-                                        <a href="about-us.html" title="About Us">About Us</a>
+                                        <a href="{% url 'frontend:about_us' %}" title="About Us">About Us</a>
                                     </li>
                                     <li class="">
-                                        <a href="" title="Services">Products</a>
+                                        <a href="{% url 'frontend:equipments' %}" title="Products">Equipments</a>
                                     </li>
                                     <li>
-                                        <a href="contact-us.html" title="Contact Us">Contact Us</a>
+                                        <a href="{% url 'frontend:contact_us' %}" title="Contact Us">Contact Us</a>
                                     </li>
                                 </ul>
                                 <div class="header-cta">
