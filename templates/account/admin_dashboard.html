@@ -1,0 +1,131 @@
+{% extends '../frontend/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<main class="site-main">
+
+    <!-- START OF MAIN BANNER -->
+    <section class="inner-banner back-img" style="background-image: url('/static/frontend/assets/images/inner_banner_image2.jpg');">
+        <div class="banner-stripes">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="banner-shape-wp wow fadeInRight for-des" data-wow-duration=".8s">
+            <div class="banner-shape">
+                <span class="stripe"></span>
+                <span class="stripe stripe-secondary"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-banner-content-wp white-text text-center">
+                        <div class="inner-banner-content wow fadeInUp" data-wow-duration=".8s">
+                            <h2 class="h1-title">Admin Dashboard</h2>
+                        </div>
+                        <div class="inner-banner-breadcrumb wow fadeInUp" data-wow-duration=".8s" data-wow-delay=".2s">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'frontend:home' %}" title="Home">Home</a>
+                                </li>
+                                <li>
+                                    <span>Admin Dashboard</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END OF MAIN BANNER -->
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Dashboard</h1>
+                <div class="row justify-content-between align-item-center">
+                  <div class="col-6 col-md-10">
+                    <p class="lead mb-0">Welcome <span class="text-success fw-bold">Admin</span></p>
+                  </div>
+                  <div class="col-6 col-md-2">
+                      <!-- <p><a href="" class="btn btn-outline-secondary btn-sm fw-bold px-4">Settings</a> </p>   -->
+                      <a href="{% url 'account:add_product' %}" class="btn btn-dark btn-sm fw-bold">Add new Product</a>
+                  </div>
+                </div>
+                
+                {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-success alert-dismissible fade show" role="alert">
+                          {{message}}
+                          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                  {% endfor %}
+                {% endif %}
+                        
+                <hr class="mt-0">
+            </div>
+        </div>
+        <div class="row pt-3">
+            
+            <div class="col-md-12">
+                <h2 class="text-center text-primary">Products</h2>
+                <div class="card">
+                    <!-- <a href="" class="btn btn-danger fw-bold w-100 h-auto mt-4">Add More Customers</a> -->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-condensed ">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Prize</th>
+                                    <th scope="col">Created</th>
+                                    <th scope="col"></th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for product in products %}
+                                  <tr>
+                                    <td>{{product.title|slice:'0:20'}}</td>
+                                    <td>{{product.price|intcomma}}</td>
+                                    <td>{{product.created}}</td>
+                                    <td><a href="{% url 'account:edit_product' product.id %}" class="btn btn-info btn-sm fw-bold text-white">Edit</a></td>
+                                    <td><a href="{% url 'account:delete_product' product.id %}" class="btn btn-danger btn-sm fw-bold text-white">Delete</a></td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                            </table>
+    
+                            <!-- product pagination start -->
+                            <div class="pagination">
+                              <span class="step-links">
+                                  {% if products.has_previous %}
+                                      <a href="?product_page=1">&laquo; first</a>
+                                      <a href="?product_page={{ products.previous_page_number }}">previous</a>
+                                  {% endif %}
+                          
+                                  <span class="current">
+                                      Page {{ products.number }} of {{ products.paginator.num_pages }}.
+                                  </span>
+                          
+                                  {% if products.has_next %}
+                                      <a href="?product_page={{ products.next_page_number }}">next</a>
+                                      <a href="?product_page={{ products.paginator.num_pages }}">last &raquo;</a>
+                                  {% endif %}
+                              </span>
+                            </div>
+                            <!-- product pagination end -->
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+        
+    </div>
+
+</main>
+{% endblock %}
