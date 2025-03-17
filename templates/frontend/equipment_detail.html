@@ -121,10 +121,6 @@
             </div>
             
             <div id="bt-alert" class=" text-success fw-bold"></div>
-            <!-- <div id="bt-alert" class="alert alert-success alert-dismissible fade show btt-alert" role="alert">
-            Item is successfully added to card
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div> -->
             <button value="{{product.id}}" id="add-button" class="btn btn-danger fw-bold btn-sm mt-4 w-50 h-auto">Add To Cart</button>
         </div>
         </div>
@@ -143,5 +139,51 @@
               ProductImg.src = SmallImg[i].src;
           }
       }
+</script>
+
+<script>
+    function getCSRFToken() {
+        let cookieValue = null;
+        const cookies = document.cookie.split(";");
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.startsWith("csrftoken=")) {
+                cookieValue = cookie.substring("csrftoken=".length, cookie.length);
+                break;
+            }
+        }
+        return cookieValue;
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("add-button").addEventListener("click", function (e) {
+            e.preventDefault();
+            
+            const productId = document.getElementById("add-button").value;
+            const qty = document.getElementById("qty-select").value;
+            const csrfToken = getCSRFToken();
+
+            fetch("{% url 'basket:basket_add' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": csrfToken
+                },
+                body: `productid=${productId}&qty=${qty}&action=post`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error("Error:", data.error);
+                } else {
+                    document.getElementById("basket-qty").innerHTML = data.qty;
+                    document.getElementById("bt-alert").innerHTML = "Item successfully added to cart";
+                }
+            })
+            .catch(error => console.error("Fetch error:", error));
+        });
+    });
+
+
 </script>
 {% endblock %}

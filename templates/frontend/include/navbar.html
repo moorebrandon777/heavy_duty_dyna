@@ -4,7 +4,7 @@
     .cart_button_me{
         position: relative;
     }
-    .cart_count_me{
+    .basket-qty{
         position: absolute;
         top: -17px;
         right: 6px;
@@ -80,10 +80,16 @@
                                     <div class="header-search-button">
                                         <button type="button" class="cart_button_me">
                                             <img src="{% static 'frontend/assets/images/cart_icon3.png' %}" width="25" height="20" alt="Search Icon">
-                                            <div class="text-warning fw-bold cart_count_me">
-                                                2
-                                            </div>
-                                            <!-- <img src="{% static 'frontend/assets/images/search-icon.svg' %}" width="20" height="20" alt="Search Icon"> -->
+                                            
+                                            {% with total_qty=basket|length %}
+                                                <div class="text-warning fw-bold basket-qty" id="basket-qty">
+                                                    {% if total_qty > 0 %}
+                                                    {{ total_qty }}
+                                                    {% else %}
+                                                    0
+                                                    {% endif %}
+                                                </div>
+                                            {% endwith %}
                                         </button>
                                     </div>
                                     {% if request.user.is_authenticated %}
