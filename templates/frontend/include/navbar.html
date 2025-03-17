@@ -1,5 +1,19 @@
 {% load static %}
 
+<style>
+    .cart_button_me{
+        position: relative;
+    }
+    .cart_count_me{
+        position: absolute;
+        top: 0;
+        right: -7px;
+        font-size: 20px;
+    }
+    .text-warning{
+        color: rgb(253, 137, 4) !important;
+    }
+</style>
 <!-- START OF HEADER -->
 <header id="site_header" class="site-header">
     <div class="header-top">
@@ -62,8 +76,12 @@
                                 </ul>
                                 <div class="header-cta">
                                     <div class="header-search-button">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#searchModal">
-                                            <img src="{% static 'frontend/assets/images/search-icon.svg' %}" width="20" height="20" alt="Search Icon">
+                                        <button type="button" class="cart_button_me">
+                                            <img src="{% static 'frontend/assets/images/cart_icon3.png' %}" width="30" height="20" alt="Search Icon">
+                                            <div class="text-warning fw-bold cart_count_me">
+                                                2
+                                            </div>
+                                            <!-- <img src="{% static 'frontend/assets/images/search-icon.svg' %}" width="20" height="20" alt="Search Icon"> -->
                                         </button>
                                     </div>
                                     {% if request.user.is_authenticated %}
