@@ -78,7 +78,7 @@
                                 </ul>
                                 <div class="header-cta">
                                     <div class="header-search-button">
-                                        <button type="button" class="cart_button_me">
+                                        <a href="{% url 'basket:basket_summary' %}"  type="button" class="cart_button_me">
                                             <img src="{% static 'frontend/assets/images/cart_icon3.png' %}" width="25" height="20" alt="Search Icon">
                                             
                                             {% with total_qty=basket|length %}
@@ -90,7 +90,20 @@
                                                     {% endif %}
                                                 </div>
                                             {% endwith %}
-                                        </button>
+                                        </a>
+                                        <!-- <button type="button" class="cart_button_me">
+                                            <img src="{% static 'frontend/assets/images/cart_icon3.png' %}" width="25" height="20" alt="Search Icon">
+                                            
+                                            {% with total_qty=basket|length %}
+                                                <div class="text-warning fw-bold basket-qty" id="basket-qty">
+                                                    {% if total_qty > 0 %}
+                                                    {{ total_qty }}
+                                                    {% else %}
+                                                    0
+                                                    {% endif %}
+                                                </div>
+                                            {% endwith %}
+                                        </button> -->
                                     </div>
                                     {% if request.user.is_authenticated %}
                                         <a href="{% url 'account:logout' %}" class="sec-btn" title="Get a Quote">Logout</a>

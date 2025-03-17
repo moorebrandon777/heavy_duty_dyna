@@ -1,0 +1,168 @@
+{% extends '../frontend/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<main class="site-main">
+
+    <!-- START OF MAIN BANNER -->
+    <section class="inner-banner back-img" style="background-image: url('/static/frontend/assets/images/inner_banner_image4.jpg');">
+        <div class="banner-stripes">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="banner-shape-wp wow fadeInRight for-des" data-wow-duration=".8s">
+            <div class="banner-shape">
+                <span class="stripe"></span>
+                <span class="stripe stripe-secondary"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-banner-content-wp white-text text-center">
+                        <div class="inner-banner-content wow fadeInUp" data-wow-duration=".8s">
+                            <h2 class="h1-title">Cart Summary
+                        </div>
+                        <div class="inner-banner-breadcrumb wow fadeInUp" data-wow-duration=".8s" data-wow-delay=".2s">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'frontend:home' %}" title="Home">Home</a>
+                                </li>
+                                <li>
+                                    <span>Cart Summary</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END OF MAIN BANNER -->
+
+    <!-- basket and checkout -->
+    <div class="container my-5 py-3 rounded cart">
+        <div class="row no-gutters">
+            <div class="col-md-7">
+                <div class="d-flex flex-row align-items-center"><i class="fa fa-long-arrow-left"></i><span class="ml-2"><a href="{% url 'frontend:equipments' %}">Continue Shopping</a></span></div>
+                <hr>
+                <h6 class="mb-0">Shopping cart</h6>
+                {% if basket|length == 0 %}
+                    <div class="d-flex justify-content-between">
+                        <span>Your cart is empty</span>
+                    </div>
+                {% else %}
+                    <div class="d-flex justify-content-between">
+                        <span>You have {{basket|length}} items in your cart</span>
+                    </div>
+                    <hr>
+
+                    {% for item in basket %}
+                    {% with product=item.product %}
+                        <div class="card pt-2 pb-0 mb-2 product-item" data-index="{{product.id}}">
+                            <div class="row">
+                                <div class="col-5 col-md-6">
+                                    <div class="d-content">
+                                        <div class="row">
+                                            <div class="col-4">
+                                                {% for imgg in product.media.all %}
+                                                {% if imgg.is_featured %}
+                                                    <img src="{{imgg.image.url}}" alt="" class="p_image img-fluid">
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="col-8">
+                                                <p class="p_title">{{product.title|slice:":45"}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2">
+                                    <p class="fw-bold text-muted">Days:</p>
+                                    <p class="mt-2 fw-bold text-primary ms-2">{{item.qty}}</p>
+                                </div>
+                                <div class="col-5 col-md-4">
+                                    <div class="row">
+                                        <div class="col-8 col-md-8">
+                                            <p class="fw-bold text-muted">Prize Per Day:</p>
+                                            <p class="fw-bold">${{product.price|intcomma}}</p>
+                                        </div>
+                                        <div class="col-4 col-md-4">
+                                            <a type="button" id="delete-button" data-index="{{product.id}}" class="delete-button text-danger">
+                                                <img src="{% static 'frontend/assets/images/close_icon_me.png' %}" alt="" width="20">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+
+            <!-- checkout part -->
+            {% if basket|length > 0 %}
+            <div class="col-md-5">
+                <div class="payment-info">
+                    <div class="d-flex justify-content-between information">
+                        <span class="text-white">Subtotal</span>
+                        <div class="text-white" id="subtotal">${{basket.get_subtotal_price|intcomma}}</div>
+                    </div>
+                    <div class="d-flex justify-content-between information">
+                        <span class="text-white">Shipping</span>
+                        <div id="shipping">
+                            ${{basket.get_shipping_price}}
+                        </div>
+                    </div>
+                        
+                        
+                    <div class="d-flex justify-content-between ">
+                        <span class="text-white">Total(Incl. taxes)</span>
+                        <div class="text-white total" id="total">${{basket.get_total_price|intcomma}}</div>
+                    </div>
+                    <hr>
+                    <hr class="line">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <p class="text-white mb-3">Please fill the form below before checking out</p>
+                            <div class="row">
+                            <div class="col-md-6">
+                                {{form.c_full_name}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form.c_email}}
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                            <div class="col-md-6">
+                                {{form.c_country}}
+                            </div>
+                            <div class="col-md-6">
+                                {{form.c_city}}
+                            </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-sm w-100 h-100  fw-bold mt-3" type="button">Checkout
+                        </button>
+                    </form>
+                    
+                    
+                    
+                    
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</main>
+{% endblock %}
