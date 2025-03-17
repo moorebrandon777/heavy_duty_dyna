@@ -1,5 +1,5 @@
 from django.db import models
-# from cloudinary.models import CloudinaryField
+from cloudinary.models import CloudinaryField
 
 class Product(models.Model):
     title = models.CharField(max_length=500)
@@ -18,8 +18,8 @@ class Product(models.Model):
 
 class Media(models.Model):
     product = models.ForeignKey(Product, related_name='media', on_delete=models.CASCADE)
-    image = models.FileField(upload_to='product_images', null=True, blank=True)
-    # image = CloudinaryField('image', null=True, default=None, blank=True)
+    # image = models.FileField(upload_to='product_images', null=True, blank=True)
+    image = CloudinaryField('image', null=True, default=None, blank=True)
     is_featured = models.BooleanField(default=False)
 
     def __str__(self):

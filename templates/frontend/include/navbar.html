@@ -6,12 +6,13 @@
     }
     .cart_count_me{
         position: absolute;
-        top: 0;
-        right: -7px;
-        font-size: 20px;
+        top: -17px;
+        right: 6px;
+        font-size: 18px;
     }
     .text-warning{
-        color: rgb(253, 137, 4) !important;
+        color: rgb(238, 255, 0) !important;
+        /* color: rgb(253, 137, 4) !important; */
     }
 </style>
 <!-- START OF HEADER -->
@@ -47,7 +48,8 @@
                 <div class="col-lg-2">
                     <div class="site-branding">
                         <a href="{% url 'frontend:home' %}" title="Induris">
-                            <img src="{% static 'frontend/assets/images/logo.svg' %}" width="152" height="35" alt="Induris Logo">
+                            <img src="{% static 'frontend/assets/images/heavy_duty_logo.png' %}" width="152" height="35" alt="Induris Logo">
+                            <!-- <img src="{% static 'frontend/assets/images/logo.svg' %}" width="152" height="35" alt="Induris Logo"> -->
                         </a>
                     </div>
                 </div>
@@ -77,7 +79,7 @@
                                 <div class="header-cta">
                                     <div class="header-search-button">
                                         <button type="button" class="cart_button_me">
-                                            <img src="{% static 'frontend/assets/images/cart_icon3.png' %}" width="30" height="20" alt="Search Icon">
+                                            <img src="{% static 'frontend/assets/images/cart_icon3.png' %}" width="25" height="20" alt="Search Icon">
                                             <div class="text-warning fw-bold cart_count_me">
                                                 2
                                             </div>
