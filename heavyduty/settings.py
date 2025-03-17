@@ -151,20 +151,3 @@ cloudinary.config(
 )
 
 BASKET_SESSION_ID = 'hddbasket'
-
-SESSION_COOKIE_SECURE = True  # Ensures session cookies are only sent over HTTPS.
-CSRF_COOKIE_SECURE = True  # Ensures CSRF cookie is only sent over HTTPS.
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://heavydutydynamics.vercel.app/',
-    'https://www.heavydutydynamics.vercel.app/',
-]
-
-CSRF_COOKIE_DOMAIN = '.vercel.app'  # Make sure to include the dot for subdomains.
-
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-
-
-
-

@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.decorators.csrf import csrf_exempt
 
 from .basket import Basket
 from store.models import Product
@@ -9,6 +10,7 @@ def basket_summary(request):
     basket = Basket(request)
     return render(request, 'basket/summary.html', {'basket': basket})
 
+@csrf_exempt
 def basket_add(request):
     basket = Basket(request)
 
