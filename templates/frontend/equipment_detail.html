@@ -167,7 +167,7 @@
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                    "X-CSRFToken": csrfToken
+                    "X-CSRFToken": '{{csrf_token}}'
                 },
                 body: `productid=${productId}&qty=${qty}&action=post`
             })
@@ -187,3 +187,4 @@
 
 </script>
 {% endblock %}
+"X-CSRFToken": csrfToken

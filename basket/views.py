@@ -10,7 +10,7 @@ def basket_summary(request):
     basket = Basket(request)
     return render(request, 'basket/summary.html', {'basket': basket})
 
-@csrf_exempt
+# @csrf_exempt
 def basket_add(request):
     basket = Basket(request)
 
