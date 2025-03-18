@@ -75,15 +75,15 @@ class Basket:
         elif subtotal <= 55000:
             shipping = Decimal(10000.00)
         elif subtotal <= 120000:
-            shipping = Decimal(20500.00)
+            shipping = Decimal(30500.00)
         elif subtotal <= 270000:
-            shipping = Decimal(27500.00)
+            shipping = Decimal(37500.00)
         elif subtotal <= 330000:
-            shipping = Decimal(32000.00)
-        elif subtotal <= 470000:
-            shipping = Decimal(34000.00)
+            shipping = Decimal(42000.00)
+        elif subtotal <= 570000:
+            shipping = Decimal(54000.00)
         else:
-            shipping = Decimal(49500.50)
+            shipping = Decimal(79500.50)
         return shipping
     
     

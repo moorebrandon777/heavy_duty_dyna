@@ -4,6 +4,59 @@
 
 {% block content %}
 
+<style>
+    input,
+    input::-webkit-input-placeholder,
+    textarea::-webkit-input-placeholder {
+        font-size: 14px;
+        color: #444242 !important;
+    }
+    .payment-info {
+        background: #5b026d;
+        /* background: #5b026d; */
+        padding: 10px;
+        border-radius: 6px;
+        color: #fff;
+        font-weight: bold;
+    }
+    .p_image{
+        width: 100%;
+        height: 60px;
+        object-fit: cover;
+    }
+
+    .p_title{
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .close_btn_me{
+            width: 20px;
+        }
+    @media (max-width: 767px){
+        .p_title{
+            font-size: 8px;
+        }
+        p{
+            font-size: 10px;
+            margin-bottom: 0px;
+        }
+        .close_btn_me{
+            width: 15px;
+        }
+        .p_image{
+            width: 100%;
+            height: 40px;
+            object-fit: cover;
+        }
+        #subtotal, #shipping, #total{
+            font-size: 12px;
+        }
+        span{
+            font-size: 12px;
+        }
+    }
+</style>
+
 <main class="site-main">
 
     <!-- START OF MAIN BANNER -->
@@ -64,35 +117,43 @@
                     {% with product=item.product %}
                         <div class="card pt-2 pb-0 mb-2 product-item" data-index="{{product.id}}">
                             <div class="row">
-                                <div class="col-5 col-md-6">
+                                <div class="col-5 col-md-5">
                                     <div class="d-content">
-                                        <div class="row">
-                                            <div class="col-4">
+                                        <div class="row gx-3">
+                                            <div class="col-3">
                                                 {% for imgg in product.media.all %}
                                                 {% if imgg.is_featured %}
                                                     <img src="{{imgg.image.url}}" alt="" class="p_image img-fluid">
                                                 {% endif %}
                                                 {% endfor %}
                                             </div>
-                                            <div class="col-8">
+                                            <div class="col-6">
                                                 <p class="p_title">{{product.title|slice:":45"}}</p>
+                                            </div>
+                                            <div class="col-3">
+                                                <p class="fw-bold text-muted">Days:</p>
+                                                <p class="fw-bold text-primary">{{item.qty}}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-2">
-                                    <p class="fw-bold text-muted">Days:</p>
+                                <!-- <div class="col-2">
+                                    <p class="fw-bold text-muted">Days: {{item.qty}}</p>
                                     <p class="mt-2 fw-bold text-primary ms-2">{{item.qty}}</p>
-                                </div>
-                                <div class="col-5 col-md-4">
+                                </div> -->
+                                <div class="col-7 col-md-7">
                                     <div class="row">
-                                        <div class="col-8 col-md-8">
+                                        <div class="col-5 col-md-5">
                                             <p class="fw-bold text-muted">Prize Per Day:</p>
                                             <p class="fw-bold">${{product.price|intcomma}}</p>
                                         </div>
-                                        <div class="col-4 col-md-4">
+                                        <div class="col-5 col-md-5">
+                                            <p class="fw-bold text-muted">subtotal:</p>
+                                            <p class="fw-bold">${{item.total_price|intcomma}}</p>
+                                        </div>
+                                        <div class="col-2 col-md-2">
                                             <a type="button" id="delete-button" data-index="{{product.id}}" class="delete-button text-danger">
-                                                <img src="{% static 'frontend/assets/images/close_icon_me.png' %}" alt="" width="20">
+                                                <img src="{% static 'frontend/assets/images/close_icon_me.png' %}" alt="" class="close_btn_me">
                                             </a>
                                         </div>
                                     </div>
@@ -117,7 +178,7 @@
                     <div class="d-flex justify-content-between information">
                         <span class="text-white">Shipping</span>
                         <div id="shipping">
-                            ${{basket.get_shipping_price}}
+                            ${{basket.get_shipping_price|intcomma}}
                         </div>
                     </div>
                         
@@ -165,4 +226,50 @@
     </div>
 
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("click", function (e) {
+            if (e.target.closest(".delete-button")) {
+                e.preventDefault();
+
+                const button = e.target.closest(".delete-button"); // Get the button element
+                const prodid = button.dataset.index; // Get product ID
+
+                fetch("{% url 'basket:basket_delete' %}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-CSRFToken": '{{csrf_token}}'
+                    },
+                    body: `productid=${prodid}&action=post`
+                })
+                .then(response => response.json())
+                .then(json => {
+                    // Remove the product from the DOM
+                    document.querySelector(`.product-item[data-index="${prodid}"]`)?.remove();
+
+                    let total, subtotal;
+                    if (json.qty == 0) {
+                        total = 0;
+                        subtotal = 0;
+                        location.reload();
+                    } else {
+                        total = (parseFloat(json.subtotal) + 11.50).toFixed(2);
+                        subtotal = json.subtotal;
+                    }
+
+                    // Update basket UI
+                    document.getElementById("subtotal").innerHTML = subtotal;
+                    document.getElementById("basket-qty").innerHTML = json.qty;
+                    document.getElementById("total").innerHTML = total;
+                    document.getElementById("shipping").innerHTML = `$${json.shipping}`;
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        });
+    });
+
+
+</script>
 {% endblock %}
