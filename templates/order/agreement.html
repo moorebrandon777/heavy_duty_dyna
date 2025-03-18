@@ -16,14 +16,14 @@
             <div class="col-12 col-md-9">
                 <div class="card">
                     <div class="card-body invoice_wrapper">
-                        <h4 class="text-center">ENGINEERING EQUIPMENT RENTAL AGREEMENT</h4>
+                        <h4 class="text-center mt-3">ENGINEERING EQUIPMENT RENTAL AGREEMENT</h4>
                         <hr>
 
                         <div class="row gx-5 px-5">
                             <div class="col-6">
                                 <h5>Lessor:</h5>
                                 <ul>
-                                    <li>Heavu Duty Dynamic,</li>
+                                    <li>Heavy Duty Dynamic,</li>
                                     <li>7685 6th St #7667, Burnaby,  BC V3N <br> 3M8, Canada,</li>
                                     <li>Phone,</li>
                                     <li>contact@heavydutydynamic.com,</li>
@@ -43,7 +43,7 @@
 
                         <!-- equippment list -->
                         <p class="fw-bold">1. Equipment Description:</p>
-                        <p>The Lessor agrees to rent to the Lessee the following equipments below on the specified prices:</p>
+                        <p>The Lessor agrees to rent to the Lessee the following equipments below for the specified period and on  the specified prices:</p>
                         <div class="row">
                             <div class="col-md-12">   
                             <div class="table-responsive">
@@ -63,7 +63,7 @@
                                         <tr>
                                             <td>{{item.product.title|slice:':60'}}</td>
                                             <td>{{item.quantity}}</td>
-                                            <td>Starting - {{order.created}} <br> Ending - {{order.created}}</td>
+                                            <td>Starting - {{order.delivery_date}} <br> Ending - {{item.rental_end_date}}</td>
                                             <td>${{item.product.price|intcomma}}</td>
                                             <td>${{item.get_item_subtotal|intcomma}}</td>
                                             
@@ -76,19 +76,45 @@
                         </div>
 
                         <!-- rental fee -->
-                        <p class="fw-bold">1. Rental Fee:</p>
+                        <p class="fw-bold">2. Rental Fee:</p>
                         <p>The Lessee agrees to pay the Lessor a rental fee per  Day for the duration of the rental period. The total rental fee is <strong>${{order.total|intcomma}}</strong> for the entire rental period. If the equipment is not returned on the end date of the rental agreement, the Lessee agrees to pay Per day of the equipment till the final return date with an additional 18 percent interest on the payment for breaching the lease agreement. </p>
 
                         <!-- delivery address -->
-                        <p class="fw-bold">5. Delivery and Return of Equipment:</p>
-                        <p>DELIVERY: The Lessor will deliver the Equipment to the Lessee's location at [Delivery Address] on [Date of Delivery].</p>
+                        <p class="fw-bold">3. Delivery and Return of Equipment:</p>
+                        <p>DELIVERY: The Lessor will deliver the Equipment to the Lessee's location at <strong>{{order.delivery_address}}</strong> on <strong>{{order.delivery_date}}</strong>.</p>
                         <p>
                             RETURN: The Lessee agrees to return the Equipment to the Lessor in the same condition it was rented, reasonable wear and tear excepted, on or before the end of the rental period. The Lessee is responsible for all return shipping or transportation costs.
                         </p>
-                        
-   
 
+                        <!-- maintainance -->
+                        <p class="fw-bold">4. Maintenance and Care:</p>
+                        <p>The Lessee shall use the Equipment only for its intended purpose and in accordance with any manufacturer's instructions. The Lessee is responsible for maintaining the Equipment in good working order and for performing regular checks on the Equipment.</p>
+
+
+                        <!-- Damage and loss -->
+                        <p class="fw-bold">5. Damage and Loss:</p>
+                        <p>DAMAGE: The Lessee is responsible for any damage to the Equipment, beyond normal wear and tear, during the rental period. In case of damage, the Lessee agrees to pay the cost of repairs or, if the Equipment is deemed irreparable, the full replacement cost of the Equipment based on current market rate.</p>
+                        <p>LOSS: If the Equipment is lost, stolen, or irreparably damaged, the Lessee agrees to pay the Lessor the full replacement cost of the Equipment or Equipments.</p>
+
+                        <!-- insuance -->
+                        <p class="fw-bold">6. Insurance:</p>
+                        <p>The Lessee is required to maintain insurance coverage for the Equipment, including but not limited to theft, damage, and liability insurance, for the duration of the rental period.</p>
                         
+                        <!-- Indemnity -->
+                        <p class="fw-bold">7. Indemnity:</p>
+                        <p>The Lessee agrees to indemnify and hold the Lessor harmless from any claims, damages, or liabilities arising from the use of the Equipment during the rental period, including any injury or damage to persons or property.</p>
+
+                        <!-- Terminations -->
+                        <p class="fw-bold">8. Termination:</p>
+                        <p>Either party may terminate this Agreement with written notice if the other party breaches any material term or condition. The Lessee may terminate the Agreement prior to the end of the rental period, but will still be responsible for the full rental amount due.</p>
+
+                        <!-- Terminations -->
+                        <p class="fw-bold">9. Governing Law:</p>
+                        <p>This Agreement shall be governed by and construed in accordance with the laws of the State of Canada, without regard to its conflict of laws provisions.</p>
+
+                        <!-- Miscellaneous -->
+                        <p class="fw-bold">10. Miscellaneous:</p>
+                        <p>This Agreement constitutes the entire understanding between the parties. Any amendments or modifications to this Agreement must be made in writing and signed by both parties.</p>  
                     </div>
                 </div>
             </div>

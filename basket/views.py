@@ -71,7 +71,9 @@ def checkout_order(request):
                 city=customer.c_city,
                 address=customer.c_address,
                 total=baskettotal,
-                shipping_price=basketshipping
+                shipping_price=basketshipping,
+                delivery_date=customer.c_delivery_date,
+                delivery_address=customer.c_delivery_address
                 )
             order_id = order.pk
 
@@ -97,6 +99,8 @@ def order_successful(request):
     order_id = request.GET.get('obj')
     order = Order.objects.get(pk=order_id)
     order_items = OrderItem.objects.filter(order=order)
+
+    # print(order)
     
     context = {'order_items':order_items, 'order':order}
     return render(request, 'basket/order_successful.html', context)

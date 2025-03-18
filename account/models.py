@@ -39,6 +39,8 @@ class MyClient(models.Model):
     c_city = models.CharField(max_length=100)
     c_address = models.CharField(max_length=200)
     created = models.DateTimeField(auto_now_add=True)
+    c_delivery_date = models.DateField(null=True, blank=True)
+    c_delivery_address = models.CharField(max_length=300, null=True, blank=True)
 
     class Meta:
         verbose_name = "My Client"

@@ -15,6 +15,9 @@ class UserLoginForm(AuthenticationForm):
 
 
 class ClientForm(forms.ModelForm):
+    c_delivery_date = forms.DateField(
+        widget=forms.DateInput(attrs={'type': 'date'}),
+    )
     class Meta:
         model = MyClient
         fields = '__all__'
