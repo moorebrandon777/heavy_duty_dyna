@@ -1,13 +1,18 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
+from django.utils.http import urlencode
 
 from .basket import Basket
 from store.models import Product
+from order.models import Order
+from account.forms import ClientForm
 
 
 def basket_summary(request):
     basket = Basket(request)
-    return render(request, 'basket/summary.html', {'basket': basket})
+    form = ClientForm()
+    return render(request, 'basket/summary.html', {'basket': basket, 'form':form})
 
 def basket_add(request):
     basket = Basket(request)
@@ -46,3 +51,43 @@ def basket_delete(request):
         except (ValueError, TypeError) as e:
                 return JsonResponse({"error": f"Invalid data: {str(e)}"}, status=400)
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+
+def checkout_order(request):
+    basket = Basket(request)
+    form = ClientForm(request.POST)
+    if form.is_valid():
+        customer = form.save()
+        baskettotal = basket.get_total_price()
+        # basketsubtotal = basket.get_subtotal_price()
+        basketshipping = basket.get_shipping_price()
+
+        if not request.user.is_authenticated:
+
+            order = Order.objects.create(
+                full_name=customer.c_full_name,
+                email=customer.c_email,
+                country=customer.c_country,
+                city=customer.c_city,
+                address=customer.c_address,
+                total=baskettotal,
+                shipping_price=basketshipping
+                )
+        
+
+            # clear cart
+            basket.clear()
+
+            # redirect to order successfull
+            redirect_url = reverse('basket:order_successful')
+            parameters = urlencode({'obj': order.pk})
+            return redirect(f'{redirect_url}?{parameters}')
+        
+
+def order_successful(request):
+    order_id = request.GET.get('obj')
+    order = Order.objects.get(pk=order_id)
+    print(order.id)
+    
+    context = {}
+    return render(request, 'basket/order_successful.html', context)

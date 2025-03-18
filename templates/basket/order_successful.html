@@ -1,0 +1,68 @@
+{% extends '../frontend/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<main class="site-main">
+
+    <!-- START OF MAIN BANNER -->
+    <section class="inner-banner back-img" style="background-image: url('/static/frontend/assets/images/inner_banner_image4.jpg');">
+        <div class="banner-stripes">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="banner-shape-wp wow fadeInRight for-des" data-wow-duration=".8s">
+            <div class="banner-shape">
+                <span class="stripe"></span>
+                <span class="stripe stripe-secondary"></span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="inner-banner-content-wp white-text text-center">
+                        <div class="inner-banner-content wow fadeInUp" data-wow-duration=".8s">
+                            <h2 class="h1-title">Cart Summary
+                        </div>
+                        <div class="inner-banner-breadcrumb wow fadeInUp" data-wow-duration=".8s" data-wow-delay=".2s">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'frontend:home' %}" title="Home">Home</a>
+                                </li>
+                                <li>
+                                    <span>Cart Summary</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END OF MAIN BANNER -->
+
+    <!-- order success card -->
+    <div class="container py-5">
+        <div class="row justify-content-center align-items-center py-5">
+            <div class="col-md-6">
+                <div class="card bg-light shadow">
+                    <div class="card-body">
+                        <center>
+                            <i class="bi bi-check-circle" style="font-size: 140px; color: green;"></i>
+                        </center>
+                        <p class="fw-bold text-center">Your Order was placed Successfully. <br>
+                            Please check your email for further instructions on how to make payment.
+                            Thank you.
+                        </p>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}

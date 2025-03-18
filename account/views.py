@@ -11,6 +11,7 @@ from django.core.paginator import Paginator
 
 from .models import Customer
 from store.models import Product
+from order.models import Order
 from store.forms import AddProductForm, MediaFormSet, EditMediaFormSet
 
 
@@ -31,7 +32,7 @@ class AdminDashboard(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(AdminDashboard, self).get_context_data(**kwargs)
-        # context['orders'] = Order.objects.all()
+        context['orders'] = Order.objects.all()
 
         # Get all products and paginate them
         product_list = Product.objects.all()
