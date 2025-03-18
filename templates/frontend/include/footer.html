@@ -30,22 +30,22 @@
                         <h4 class="h4-title">Our Links</h4>
                         <ul>
                             <li class="active-footer-menu">
-                                <a href="index.html" title="Home">Home</a>
+                                <a href="{% url 'frontend:home' %}" title="Home">Home</a>
                             </li>
                             <li>
-                                <a href="about-us.html" title="About Us">About Us</a>
+                                <a href="{% url 'frontend:about_us' %}" title="About Us">About Us</a>
                             </li>
                             <li>
-                                <a href="services.html" title="Services">Products</a>
+                                <a href="{% url 'frontend:equipments' %}" title="Services">Equipments</a>
                             </li>
                             <li>
-                                <a href="contact-us.html" title="Contact Us">Contact Us</a>
+                                <a href="{% url 'frontend:contact_us' %}" title="Contact Us">Contact Us</a>
                             </li>
                             <li>
-                                <a href="contact-us.html" title="Contact Us">Register</a>
+                                <a href="{% url 'frontend:login' %}" title="Contact Us">Register</a>
                             </li>
                             <li>
-                                <a href="contact-us.html" title="Contact Us">Sign In</a>
+                                <a href="{% url 'frontend:login' %}" title="Contact Us">Sign In</a>
                             </li>
                         </ul>
                     </div>
