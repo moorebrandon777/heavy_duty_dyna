@@ -1,0 +1,37 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@100;400;900&display=swap");
+
+:root {
+  --primary: #ff5e15;
+  /* --primary: #fc0000; */
+  --secondary: #272727;
+  --white: #fff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+}
+
+p {
+  margin: 0;
+  margin-bottom: 14px;
+}
+
+body {
+  background: var(--secondary);
+  padding: 50px;
+  color: var(--secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.invoice_wrapper {
+  border: 3px solid var(--secondary);
+  margin: 5px 10px;
+  /* width: 700px;
+	max-width: 100%; */
+}
