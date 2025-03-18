@@ -5,7 +5,7 @@ from django.utils.http import urlencode
 
 from .basket import Basket
 from store.models import Product
-from order.models import Order
+from order.models import Order, OrderItem
 from account.forms import ClientForm
 
 
@@ -73,6 +73,15 @@ def checkout_order(request):
                 total=baskettotal,
                 shipping_price=basketshipping
                 )
+            order_id = order.pk
+
+            for item in basket:
+                OrderItem.objects.create(
+                    order_id=order_id,
+                    product=item['product'],
+                    price=item['price'],
+                    quantity=item['qty']
+                    )
         
 
             # clear cart
@@ -87,7 +96,7 @@ def checkout_order(request):
 def order_successful(request):
     order_id = request.GET.get('obj')
     order = Order.objects.get(pk=order_id)
-    print(order.id)
+    order_items = OrderItem.objects.filter(order=order)
     
-    context = {}
+    context = {'order_items':order_items, 'order':order}
     return render(request, 'basket/order_successful.html', context)

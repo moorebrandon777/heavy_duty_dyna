@@ -50,12 +50,31 @@
                 <div class="card bg-light shadow">
                     <div class="card-body">
                         <center>
-                            <i class="bi bi-check-circle" style="font-size: 140px; color: green;"></i>
+                            <img src="{% static 'frontend/assets/images/check_image_icon.png' %}" alt="" width="60">
+                            <!-- <i class="bi bi-check-circle" style="font-size: 140px; color: green;"></i> -->
                         </center>
                         <p class="fw-bold text-center">Your Order was placed Successfully. <br>
                             Please check your email for further instructions on how to make payment.
                             Thank you.
                         </p>
+                        <hr>
+                        <p class="text-danger text-center">Below is the list of your items</p>
+
+                        <div class="table-responsive ">
+                            <table class="table table-hover table-bordered table-striped condesed-table table-sm">
+                                
+                                <tbody>
+                                {% for item in order_items %}
+                                <tr>
+                                    <th scope="row">{{forloop.counter}}</th>
+                                    <td>{{item.product.title}}</td>
+                                    <td>{{item.quantity}} Days</td>
+                                    <td>${{item.product.price|intcomma}} - per day</td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
                         
 
                     </div>
