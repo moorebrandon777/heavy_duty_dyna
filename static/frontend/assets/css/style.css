@@ -160,7 +160,8 @@ h6,
 
 :root {
   --primary-color: #1f212d;
-  --secondary-color: #ff5e15;
+  --secondary-color: #d10081;
+  /* --secondary-color: #ff5e15; */
   --golden-color: #d19f29;
   --border-color: #c4c4c4;
   --light-bg: #f2f3f5;

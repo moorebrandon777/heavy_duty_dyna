@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.http import urlencode
 
@@ -7,6 +8,7 @@ from .basket import Basket
 from store.models import Product
 from order.models import Order, OrderItem
 from account.forms import ClientForm
+from frontend import emails
 
 
 def basket_summary(request):
@@ -84,15 +86,38 @@ def checkout_order(request):
                     price=item['price'],
                     quantity=item['qty']
                     )
-        
 
-            # clear cart
-            basket.clear()
 
-            # redirect to order successfull
-            redirect_url = reverse('basket:order_successful')
-            parameters = urlencode({'obj': order.pk})
-            return redirect(f'{redirect_url}?{parameters}')
+            # getting email template
+            f_message = render_to_string('emails/email_order.html', 
+                            {
+                                'name': customer.c_full_name,
+                                'order_id': order.pk,
+                                'date': order.created,
+                                'country': customer.c_country,
+                                'city': customer.c_city,
+                                'total': basket.get_total_price()
+                            })
+
+            try:
+                emails.email_message_send(
+                    'Order Successful',
+                    f_message,
+                    customer.c_email,
+                )
+            except:
+                pass 
+
+            finally:
+                # clear cart
+                basket.clear()
+                
+                # redirect to order successfull
+                redirect_url = reverse('basket:order_successful')
+                parameters = urlencode({'obj': order.pk})
+                return redirect(f'{redirect_url}?{parameters}')
+        else:
+            return redirect('basket: basket_summary')
         
 
 def order_successful(request):
